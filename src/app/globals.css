@@ -1,26 +1,165 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+    --background: #151515;
+    --text: rgb(250, 249, 245);
+    --main-light: #3ecf8e;
+    --main-dark: #006239;
+    --purple: rgb(112, 100, 246);
+    --green: rgb(211, 247, 166);
+    --green-with-opacity: rgba(0, 98, 57, 0.4);
+    --claude: #da7756;
+    --container: #1d1d1d;
+    --buy: rgb(126, 214, 96); /* Brighter version of #76b562 */
+    --sell: rgb(255, 107, 91);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-background: var(--background);
+    --color-text: var(--text);
+    --color-main-dark: var(--main-dark);
+    --color-main-light: var(--main-light);
+    --color-custom-purple: var(--purple);
+    --color-custom-green: var(--green);
+    --color-custom-greenOpacity: var(--green-with-opacity);
+    --color-claude: var(--claude);
+    --color-container: var(--container);
+    --color-buy: var(--buy);
+    --color-sell: var(--sell);
+    --font-mono: var(--font-roboto-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --background: #222;
+        --foreground: #ededed;
+    }
+} */
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--text);
+    font-size: 0.8rem;
+    font-weight: 300;
+}
+
+/* Main Animation section */
+
+.circle-container {
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.circle {
+    border-radius: 50%;
+    filter: blur(80px);
+    height: 100vmax;
+    left: 40%;
+    /* mix-blend-mode: overlay; */
+    position: absolute;
+    top: -80vmax;
+    width: 100vmax;
+    animation: orbit 6s linear infinite;
+}
+
+#circle1 {
+    background-color: rgba(235, 223, 135, 0.6);
+    animation: orbit 6s infinite linear;
+}
+
+#circle2 {
+    background-color: rgba(0, 200, 255, 0.6);
+    animation: rorbit 10s infinite linear;
+}
+
+#circle3 {
+    background-color: rgba(254, 182, 255, 0.6);
+    animation: rorbit 8s infinite linear;
+}
+
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translateX(20vmin) rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg) translateX(20vmin) rotate(-360deg);
+    }
+}
+
+@keyframes rorbit {
+    100% {
+        transform: rotate(0deg) translateX(20vmin) rotate(0deg);
+    }
+    0% {
+        transform: rotate(360deg) translateX(20vmin) rotate(-360deg);
+    }
+}
+
+/* end of Main Animation section */
+
+/* Loading Section */
+
+.running-algorithm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.dot {
+    width: 15px;
+    height: 15px;
+    margin: 0 6px;
+    background-color: var(--main-light);
+    border-radius: 50%;
+    animation: loading 1s infinite ease-in-out;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes loading {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
+/* End of Loading Section */
+
+.bg-image {
+    background-image: url("/globe.svg");
+    background-size: 1200px;
+    background-repeat: no-repeat;
+    background-position-y: 160px;
+    background-blend-mode: darken;
+}
+
+.container {
+    @apply border border-zinc-800 shadow-lg rounded-4xl bg-(--container) p-10;
+}
+
+.nav-button {
+    @apply px-4 py-2 border border-zinc-800 hover:border-zinc-500 rounded-md bg-[#191919] whitespace-nowrap cursor-pointer ease-out duration-200 transition-all;
+}
+
+.green-button {
+    @apply w-fit bg-custom-green text-black font-medium px-4 py-2 rounded-full outline-0 focus-visible:outline-4 focus-visible:outline-offset-1 text-center ease-out duration-200 cursor-pointer hover:opacity-80;
+}
+
+.flex-center {
+    @apply flex items-center justify-center;
 }
