@@ -94,7 +94,7 @@ function analyzeFundamentals(metrics: FinancialMetrics[]): {
     score: number;
     maxScore: number;
     details: string[];
-    metrics?: any;
+    metrics?: FinancialMetrics | undefined;
 } {
     if (!metrics || metrics.length === 0) {
         return {

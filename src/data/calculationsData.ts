@@ -1,4 +1,4 @@
-import { CalculationsDataType } from "@/types/calculationData";
+import { CalculationsDataType } from "@/types/calculationDataTypes";
 
 export const calculationsData: CalculationsDataType = {
     buffett: {

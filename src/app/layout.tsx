@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import ReduxProvider from "@/components/ReduxProvider";
+import { ClerkProvider } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
+import { Toaster } from "sonner";
 
 const robotoMono = Roboto_Mono({
     variable: "--font-roboto-mono",
@@ -21,7 +24,15 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${robotoMono.className} antialiased`}>
-                <ReduxProvider>{children}</ReduxProvider>
+                <ReduxProvider>
+                    <ClerkProvider
+                        appearance={{
+                            baseTheme: dark,
+                        }}>
+                        {children}
+                    </ClerkProvider>
+                </ReduxProvider>
+                <Toaster richColors position="top-right" />
             </body>
         </html>
     );

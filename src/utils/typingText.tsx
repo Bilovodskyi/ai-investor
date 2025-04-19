@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const stringsToType = [
     "Unlock Smarter Investments with the Power of AI.",
@@ -59,7 +60,7 @@ const TypingAnimation = () => {
     }, []);
 
     return (
-        <div className="h-1/2 flex flex-col gap-4">
+        <div className="md:h-1/2 flex flex-col gap-4 mb-6 md:mb-0">
             <h1 className="text-4xl leading-12">
                 {text[0] || ""}
                 {stringIndex === 0 && showCursor ? (
@@ -68,7 +69,7 @@ const TypingAnimation = () => {
                     <span style={{ opacity: 0 }}>|</span>
                 )}
             </h1>
-            <div className="flex flex-col gap-2 text-lg leading-8">
+            <div className="flex flex-col gap-2 text-md md:text-lg leading-8">
                 <span>
                     {text[1] || ""}
                     {stringIndex === 1 && showCursor ? (
@@ -110,7 +111,8 @@ const TypingAnimation = () => {
                     )}
                 </span>
             </div>
-            <div
+            <Link
+                href="/sign-in"
                 className={`relative group inline-block cursor-pointer w-fit mt-4 transition-transform duration-200 ease-in-out ${
                     isTypingComplete
                         ? "translate-y-0 opacity-100"
@@ -121,7 +123,7 @@ const TypingAnimation = () => {
                     <ArrowUpRight strokeWidth={1} size={30} />
                 </div>
                 <span className="absolute left-0 bottom-0 block h-[0.3px] w-full bg-white transition-all duration-300 group-hover:w-0"></span>
-            </div>
+            </Link>
         </div>
     );
 };

@@ -1,94 +1,124 @@
 "use client";
-import { debounce } from "@/utils/helperFunctions";
+import CircleLoader from "@/components/loading/CircleLoading";
+// import CircleLoader from "@/components/loading/CircleLoading";
+import { supportedCompanyNames } from "@/data/supportedTickers";
+// import { debounce } from "@/utils/helperFunctions";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-export type StockInfo = {
-    symbol: string;
-    name: string;
-    currency: string;
-    exchangeFullName: string;
-    exchange: string;
+// export type StockInfo = {
+//     symbol: string;
+//     name: string;
+//     currency: string;
+//     exchangeFullName: string;
+//     exchange: string;
+// };
+
+type SupportedCompanyNamesType = {
+    companyName: string;
+    ticker: string;
 };
 
 export default function SearchPage() {
-    // const [search, setSearch] = useState("");
-    const [searchResult, setSearchResult] = useState<StockInfo[] | undefined>();
-    const [isMobile, setIsMobile] = useState(false);
+    // const [searchResult, setSearchResult] = useState<StockInfo[] | undefined>();
+    const [searchLoading, setSearchLoading] = useState(false);
+    const [searchResult, setSearchResult] = useState<
+        SupportedCompanyNamesType[] | null
+    >(null);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < 768); // Use < 768 for mobile, adjust as needed
-        };
+    // const handleFetchDataOnValueChange = async (
+    //     search: string
+    // ): Promise<void> => {
+    //     try {
+    //         if (!search || search.trim() === "") {
+    //             setSearchResult(undefined);
+    //             return;
+    //         }
 
-        // Set initial value
-        handleResize();
+    //         const response = await fetch(
+    //             `/api/search/${encodeURIComponent(search)}`
+    //         );
+    //         if (!response.ok) {
+    //             throw new Error(
+    //                 `API request failed with status ${response.status}`
+    //             );
+    //         }
 
-        // Add resize listener for dynamic updates
-        window.addEventListener("resize", handleResize);
+    //         const parsedResponse = await response.json();
+    //         setSearchResult(parsedResponse);
+    //     } catch (error) {
+    //         console.error("Error fetching search data:", error);
+    //         setSearchResult(undefined);
+    //     }
+    // };
 
-        // Cleanup listener on unmount
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    // const debouncedHandleFetchDataOnValueChange = debounce(
+    //     handleFetchDataOnValueChange,
+    //     500
+    // );
 
-    const handleFetchDataOnValueChange = async (
-        search: string
-    ): Promise<void> => {
-        try {
-            if (!search || search.trim() === "") {
-                setSearchResult(undefined);
-                return;
-            }
-
-            const response = await fetch(
-                `/api/search/${encodeURIComponent(search)}`
-            );
-            if (!response.ok) {
-                throw new Error(
-                    `API request failed with status ${response.status}`
-                );
-            }
-
-            const parsedResponse = await response.json();
-            setSearchResult(parsedResponse);
-        } catch (error) {
-            console.error("Error fetching search data:", error);
-            setSearchResult(undefined);
-        }
-    };
-
-    const debouncedHandleFetchDataOnValueChange = debounce(
-        handleFetchDataOnValueChange,
-        500
-    );
+    // const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const value = e.target.value;
+    //     debouncedHandleFetchDataOnValueChange(value);
+    // };
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        debouncedHandleFetchDataOnValueChange(value);
+        const query = e.target.value;
+        const q = query.trim().toLowerCase();
+        if (!q) {
+            setSearchResult(null);
+            return;
+        }
+        const filteredResult = supportedCompanyNames.filter(
+            ({ companyName, ticker }) =>
+                companyName.toLowerCase().includes(q) ||
+                ticker.toLowerCase().includes(q)
+        );
+
+        setSearchResult(filteredResult);
     };
 
-    console.log(searchResult);
     return (
-        <div className="h-svh md:h-screen relative flex justify-center items-center">
-            <div className="relative w-[400px]">
+        <div className="h-svh md:h-[calc(100vh-56px)] relative flex justify-center items-center">
+            <div className="relative w-[300px]">
                 <input
                     type="text"
                     onChange={onInputChange}
-                    className="outline-none w-full border-b-[0.5px] p-3 max-md:text-[16px] max-md:text-center"
-                    placeholder={
-                        isMobile
-                            ? "Start typing here. (Only US stocks)"
-                            : "Start typing company name here. (Only US stocks)"
-                    }
+                    className="outline-none w-full border-b-[0.5px] p-3 max-md:text-[16px]"
+                    placeholder="Search."
+                    autoFocus
                 />
-                {searchResult && searchResult.length > 0 && (
+                {searchLoading ? (
+                    <div className="absolute top-3 right-0">
+                        <CircleLoader />
+                    </div>
+                ) : (
+                    ""
+                )}
+                {/* {searchResult && searchResult.length > 0 && (
                     <ul className="absolute w-full mt-4 md:mt-2">
                         {searchResult.slice(0, 5).map((stock) => (
                             <li key={stock.symbol}>
                                 <Link
+                                    onClick={() => setSearchLoading(true)}
                                     href={`/private/${stock.symbol}`}
                                     className="block p-4 md:p-2 hover:bg-white/5 cursor-pointer rounded-md duration-150 transition-all">
                                     {stock.name}
+                                </Link>
+                            </li>
+                        ))}
+                    </ul>
+                )} */}
+                {searchResult && (
+                    <ul className="absolute w-full mt-4 md:mt-2">
+                        {searchResult.slice(0, 5).map((stock, index) => (
+                            <li key={index}>
+                                <Link
+                                    onClick={() => setSearchLoading(true)}
+                                    href={`/private/${stock.ticker}`}
+                                    className="flex justify-between items-center p-4 md:p-2 hover:bg-white/5 cursor-pointer rounded-md duration-150 transition-all">
+                                    {stock.companyName}
+                                    <p>{stock.ticker}</p>
                                 </Link>
                             </li>
                         ))}

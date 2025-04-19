@@ -140,6 +140,63 @@ body {
 
 /* End of Loading Section */
 
+/* Circle loading section */
+
+.loader {
+    border: 2px solid var(--green); /* Light gray background */
+    border-top: 2px solid #404040; /* Blue border on top */
+    border-radius: 50%; /* Make it round */
+    width: 20px; /* Width of the loader */
+    height: 20px; /* Height of the loader */
+    animation: spin 1s linear infinite; /* Apply rotation animation */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* End of circle loading section */
+
+/* Heart button section */
+
+/* Create the heart shape */
+
+.heart {
+    transition: transform 0.3s ease;
+    /* stroke is controlled inline via style, and fill is transparent by default */
+}
+
+/* Activate the animation when the element has the is-active class */
+.heart.is-active {
+    animation: fill-pop 1s forwards;
+}
+
+@keyframes fill-pop {
+    0% {
+        transform: scale(1);
+        fill: transparent;
+    }
+    30% {
+        transform: scale(1.5);
+        fill: var(--green);
+    }
+    60% {
+        transform: scale(0.75);
+        fill: var(--green);
+    }
+    100% {
+        transform: scale(1);
+        fill: var(--green);
+    }
+}
+
+/* end of heart button section  */
+
 .bg-image {
     background-image: url("/globe.svg");
     background-size: 1200px;
@@ -162,4 +219,8 @@ body {
 
 .flex-center {
     @apply flex items-center justify-center;
+}
+
+.mobile-nav-link {
+    margin: 24px 18px;
 }

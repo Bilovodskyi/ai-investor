@@ -1,49 +1,53 @@
+import { db } from "@/drizzle/db";
+import { UserTable } from "@/drizzle/schema";
 import Anthropic from "@anthropic-ai/sdk";
+import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 
 const anthropic = new Anthropic({ apiKey: process.env.CLAUDE_API_KEY });
 
 export async function POST(request: Request) {
     const data = await request.json();
     const { ticker, analysisData } = data;
-    // const { userId } = await auth();
+    const { userId } = await auth();
 
-    // if (!userId) {
-    //     return new Response(
-    //         JSON.stringify({
-    //             error: "Not authenticated",
-    //         }),
-    //         {
-    //             status: 401,
-    //             headers: { "Content-Type": "application/json" },
-    //         }
-    //     );
-    // }
+    if (!userId) {
+        return new Response(
+            JSON.stringify({
+                error: "Not authenticated",
+            }),
+            {
+                status: 401,
+                headers: { "Content-Type": "application/json" },
+            }
+        );
+    }
 
-    // const user = await db.query.UserTable.findFirst({
-    //     where: eq(UserTable.id, userId),
-    // });
+    const user = await db.query.UserTable.findFirst({
+        where: eq(UserTable.id, userId),
+    });
 
-    // if (user?.tokens === 0) {
-    //     return new Response(
-    //         JSON.stringify({
-    //             error: "You don't have enough tokens for this operation.",
-    //         }),
-    //         {
-    //             status: 402,
-    //             headers: { "Content-Type": "application/json" },
-    //         }
-    //     );
-    // }
+    if (user?.tokens === 0) {
+        return new Response(
+            JSON.stringify({
+                error: "You don't have enough tokens for this operation.",
+            }),
+            {
+                status: 402,
+                headers: { "Content-Type": "application/json" },
+            }
+        );
+    }
 
-    // if (user && user.tokens !== null && user.tokens !== undefined) {
-    //     const updatedTokens = user.tokens - 1;
+    if (user && user.tokens !== null && user.tokens !== undefined) {
+        const updatedTokens = user.tokens - 1;
 
-    //     await db
-    //         .update(UserTable)
-    //         .set({ tokens: updatedTokens })
-    //         .where(eq(UserTable.id, user.id))
-    //         .execute();
-    // }
+        await db
+            .update(UserTable)
+            .set({ tokens: updatedTokens })
+            .where(eq(UserTable.id, user.id))
+            .execute();
+    }
 
     try {
         const res = await anthropic.messages.create({
@@ -80,7 +84,7 @@ export async function POST(request: Request) {
   {
     "signal": "bullish" | "bearish" | "neutral",
     "confidence": float between 0 and 100,
-    "reasoning": "string"
+    "reasoning": "string" (max 1500 characters)
   }`,
                         },
                     ],

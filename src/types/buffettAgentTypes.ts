@@ -1,6 +1,6 @@
 export interface RawFinancialData {
     data: {
-        [key: string]: any;
+        [key: string]: string | number;
     };
     date?: string;
     symbol?: string;
@@ -47,7 +47,7 @@ export interface AnalysisDataResult {
             score: number;
             maxScore: number;
             details: string[];
-            metrics?: any;
+            metrics?: FinancialMetrics;
         };
         consistencyAnalysis: {
             score: number;

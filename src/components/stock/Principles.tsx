@@ -5,7 +5,7 @@ import React from "react";
 export default function Principles({ investor }: { investor: string }) {
     const data = investorsPrinciples[investor];
     return (
-        <div className="grid grid-cols-4 grid-rows-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 grid-rows-8 md:grid-rows-4 xl:grid-rows-2 gap-4">
             <div className="container !p-6 col-span-1 flex flex-col items-center justify-between">
                 <h1 className="text-[1rem] text-center">{data.mainTitle}</h1>
                 <Image

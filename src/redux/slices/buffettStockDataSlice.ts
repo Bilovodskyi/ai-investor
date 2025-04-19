@@ -9,12 +9,14 @@ type documentState = {
     stockDataForUi: StockProfile[] | null;
     stockDataForBuffettCalc: AnalysisDataResult | null;
     stockDataForBuffettAICall: BuffettFinancialData | null;
+    // buffettAiReport: BuffettAiReport | null;
 };
 
 const initialState: documentState = {
     stockDataForUi: null,
     stockDataForBuffettCalc: null,
     stockDataForBuffettAICall: null,
+    // buffettAiReport: null,
 };
 
 const stockDataSlice = createSlice({
@@ -30,6 +32,18 @@ const stockDataSlice = createSlice({
         setStockDataForBuffettAICall: (state, action) => {
             state.stockDataForBuffettAICall = action.payload;
         },
+        // updateBuffettAiReport(
+        //     state,
+        //     action: PayloadAction<{
+        //         stock: string;
+        //         report: AiResponseType;
+        //     }>
+        // ) {
+        //     if (state.buffettAiReport === null) {
+        //         state.buffettAiReport = {};
+        //     }
+        //     state.buffettAiReport[action.payload.stock] = action.payload.report;
+        // },
     },
 });
 
@@ -37,6 +51,7 @@ export const {
     setStockDataForUi,
     setStockDataForBuffettCalc,
     setStockDataForBuffettAICall,
+    // updateBuffettAiReport,
 } = stockDataSlice.actions;
 
 export default stockDataSlice.reducer;

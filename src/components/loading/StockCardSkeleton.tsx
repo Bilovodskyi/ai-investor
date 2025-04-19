@@ -3,7 +3,7 @@ import { Heart } from "lucide-react";
 
 const StockCardSkeleton: React.FC = () => {
     return (
-        <div className="!bg-custom-purple container max-w-[360px] max-h-[550px] flex flex-col gap-8 items-center px-8">
+        <div className="!bg-custom-purple container w-full md:max-w-[360px] h-svh md:h-[580px] flex flex-col gap-8 items-center max-md:!p-5 mt-12 md:mt-0">
             <div className="w-full flex items-center justify-between">
                 <div className="bg-container rounded-2xl animate-pulse w-14 h-14">
                     {/* <div className="w-8 h-8 bg-gray-300 animate-pulse rounded-full"></div> */}

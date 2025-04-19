@@ -1,43 +1,47 @@
-"use client";
-
-import { useAppSelector } from "@/redux/store";
 import GaugeChart from "./Chart";
 import CustomLoading from "../loading/CustomLoading";
-import { useParams } from "next/navigation";
-import { InvestorStateType } from "@/app/private/[stockId]/page";
+import { AnalysisDataResult } from "@/types/buffettAgentTypes";
 import { calculationsData } from "@/data/calculationsData";
 
-export default function Calculations({
-    investor,
-}: {
-    investor: InvestorStateType;
-}) {
-    const { stockId } = useParams<{ stockId: string }>();
+type CalculationsProps = {
+    data: AnalysisDataResult | null;
+    stockId: string;
+};
 
-    const descriptions = calculationsData[investor];
-
-    const data = useAppSelector(
-        (state) => state.stockData.stockDataForBuffettCalc
-    );
-
-    if (!data || !stockId) {
+export default function Calculations({ data, stockId }: CalculationsProps) {
+    const descriptions = calculationsData["buffett"];
+    if (!descriptions) {
         return (
             <div className="container min-h-[500px]">
                 <CustomLoading />
             </div>
         );
     }
-    console.log(data[stockId]);
+
+    if (!data?.[stockId]?.signal) {
+        return (
+            <div className="bg-image container min-h-[530px] flex-center">
+                <h1>
+                    This instrument isn&apos;t supported. Try searching for a
+                    different one.
+                </h1>
+            </div>
+        );
+    }
 
     return (
-        <div className="container min-h-[500px]">
-            <div className="flex justify-between items-center mb-8">
+        <div className="container max-md:!p-5 min-h-[500px]">
+            <div className="flex justify-center md:justify-between items-center mb-8">
                 <h1 className="text-[1.5rem] font-semibold">Final result:</h1>
-                <span>Read more about algorithm</span>
+                <span className="hidden md:block">
+                    Read more about algorithm
+                </span>
             </div>
-            <p className="border-l pl-6">{descriptions.mainDescription}</p>
+            <p className="border-l pl-3 md:pl-6">
+                {descriptions.mainDescription}
+            </p>
 
-            <div className="flex justify-between mt-6">
+            <div className="flex max-md:flex-col justify-between mt-6">
                 <div className="flex flex-1 flex-col items-center">
                     <h1>Signal:</h1>
                     <div className="flex flex-1 items-center">
@@ -46,7 +50,7 @@ export default function Calculations({
                         </span>
                     </div>
                 </div>
-                <div className="flex flex-1 flex-col items-center">
+                <div className="flex flex-1 flex-col items-center max-md:mt-6">
                     <h1>Margin of Safety:</h1>
                     <div className="flex flex-1 items-center">
                         <span className="text-[2rem] font-bold">
@@ -67,10 +71,10 @@ export default function Calculations({
                 </div>
             </div>
             <div className="flex flex-col justify-between gap-4 mt-6">
-                <h1 className="text-[1.5rem] font-semibold">
+                <h1 className="text-[1.5rem] font-semibold max-md:text-center">
                     Margin of safety:
                 </h1>
-                <p className="border-l pl-6">
+                <p className="border-l pl-3 md:pl-6">
                     {descriptions.sections.marginOfSafetyDetailed.description}
                 </p>
                 <div className="flex flex-1 flex-col items-center gap-4 mt-6">
@@ -86,11 +90,13 @@ export default function Calculations({
                 </div>
             </div>
             <div className="flex flex-col justify-between gap-4 mt-16">
-                <h1 className="text-[1.5rem] font-semibold">Fundamentals:</h1>
-                <p className="border-l pl-6">
+                <h1 className="text-[1.5rem] font-semibold max-md:text-center">
+                    Fundamentals:
+                </h1>
+                <p className="border-l pl-3 md:pl-6">
                     {descriptions.sections.fundamentals.description}
                 </p>
-                <div className="flex justify-between mt-6">
+                <div className="flex max-md:flex-col justify-between mt-6">
                     <div className="flex flex-1 gap-4 flex-col items-center">
                         <h1>Report:</h1>
                         <ul className="flex flex-col gap-2">
@@ -114,13 +120,13 @@ export default function Calculations({
                 </div>
             </div>
             <div className="flex flex-col justify-between gap-4 mt-16">
-                <h1 className="text-[1.5rem] font-semibold">
+                <h1 className="text-[1.5rem] font-semibold max-md:text-center">
                     Consistency Analysis:
                 </h1>
-                <p className="border-l pl-6">
+                <p className="border-l pl-3 md:pl-6">
                     {descriptions.sections.consistency.description}
                 </p>
-                <div className="flex justify-between mt-6">
+                <div className="flex max-md:flex-col justify-between mt-6">
                     <div className="flex flex-1 gap-4 flex-col items-center">
                         <h1>Report:</h1>
                         <ul className="flex flex-col gap-2">
@@ -144,11 +150,13 @@ export default function Calculations({
                 </div>
             </div>
             <div className="flex flex-col justify-between gap-4 mt-16">
-                <h1 className="text-[1.5rem] font-semibold">MOAT Analysis:</h1>
-                <p className="border-l pl-6">
+                <h1 className="text-[1.5rem] font-semibold max-md:text-center">
+                    MOAT Analysis:
+                </h1>
+                <p className="border-l pl-3 md:pl-6">
                     {descriptions.sections.moat.description}
                 </p>
-                <div className="flex justify-between mt-6">
+                <div className="flex max-md:flex-col justify-between mt-6">
                     <div className="flex flex-1 gap-4 flex-col items-center">
                         <h1>Report:</h1>
                         <ul className="flex flex-col gap-2">
@@ -172,13 +180,13 @@ export default function Calculations({
                 </div>
             </div>
             <div className="flex flex-col justify-between gap-4 mt-16">
-                <h1 className="text-[1.5rem] font-semibold">
+                <h1 className="text-[1.5rem] font-semibold max-md:text-center">
                     Management Analysis:
                 </h1>
-                <p className="border-l pl-6">
+                <p className="border-l pl-3 md:pl-6">
                     {descriptions.sections.management.description}
                 </p>
-                <div className="flex justify-between mt-6">
+                <div className="flex max-md:flex-col justify-between mt-6">
                     <div className="flex flex-1 gap-4 flex-col items-center">
                         <h1>Report:</h1>
                         <ul className="flex flex-col gap-2">

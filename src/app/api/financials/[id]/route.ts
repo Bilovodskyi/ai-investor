@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET(
-    request: Request,
+    _request: Request,
     { params }: { params: { id: string } }
 ) {
     const stockId = params.id;
@@ -27,6 +27,7 @@ export async function GET(
         const data = await response.json();
         return NextResponse.json(data);
     } catch (error) {
+        console.log(error);
         return NextResponse.json(
             { error: "An error occurred while fetching stock data" },
             { status: 500 }

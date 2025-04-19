@@ -1,4 +1,4 @@
-import { InvestorsPrinciples } from "@/types/investorPrinciples";
+import { InvestorsPrinciples } from "@/types/investorPrinciplesTypes";
 
 export const investorsPrinciples: InvestorsPrinciples = {
     buffett: {
