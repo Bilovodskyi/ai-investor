@@ -1,6 +1,6 @@
 export interface RawFinancialData {
     data: {
-        [key: string]: string | number;
+        [key: string]: number;
     };
     date?: string;
     symbol?: string;
