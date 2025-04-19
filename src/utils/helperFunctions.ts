@@ -37,18 +37,18 @@ export function formatMarketCap(value: number): string {
     return `${cleanedNumber} ${suffix} USD`;
 }
 
-export function debounce<T extends (...args: any[]) => void>(
-    func: T,
-    delay: number
-): (...args: Parameters<T>) => void {
-    let timeoutId: number | undefined;
-    return (...args: Parameters<T>) => {
-        if (timeoutId !== undefined) {
-            clearTimeout(timeoutId);
-        }
-        timeoutId = window.setTimeout(() => {
-            func(...args);
-            timeoutId = undefined;
-        }, delay);
-    };
-}
+// export function debounce<T extends (...args: any[]) => void>(
+//     func: T,
+//     delay: number
+// ): (...args: Parameters<T>) => void {
+//     let timeoutId: number | undefined;
+//     return (...args: Parameters<T>) => {
+//         if (timeoutId !== undefined) {
+//             clearTimeout(timeoutId);
+//         }
+//         timeoutId = window.setTimeout(() => {
+//             func(...args);
+//             timeoutId = undefined;
+//         }, delay);
+//     };
+// }
