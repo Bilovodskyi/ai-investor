@@ -4,11 +4,12 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(
     _request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    const id = await params.id;
+    const { id } = await params;
     try {
         const { userId } = await auth();
         if (!userId) {

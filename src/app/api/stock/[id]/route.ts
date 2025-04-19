@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(
     _request: Request,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    const stockId = params.id;
+    const { id: stockId } = await params;
 
     try {
         const response = await fetch(
