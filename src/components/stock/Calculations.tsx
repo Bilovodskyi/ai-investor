@@ -2,7 +2,6 @@ import GaugeChart from "./Chart";
 import CustomLoading from "../loading/CustomLoading";
 import { AnalysisDataResult } from "@/types/buffettAgentTypes";
 import { calculationsData } from "@/data/calculationsData";
-import { MessageCircleQuestion } from "lucide-react";
 
 type CalculationsProps = {
     data: AnalysisDataResult | null;
