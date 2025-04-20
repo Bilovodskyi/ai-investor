@@ -12,7 +12,7 @@ const robotoMono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "AI Investor",
+    title: "InvestSquid",
     description: "Invest smart",
 };
 

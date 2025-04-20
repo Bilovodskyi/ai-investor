@@ -223,7 +223,7 @@ export default function ListPage() {
                 {paginatedReports ? (
                     paginatedReports?.map((report) => (
                         <Link
-                            className="max-h-[170px] relative col-span-3 lg:col-span-1 row-span-1 bg-[#161616] border border-neutral-800 md:hover:border-neutral-700 duration-200 rounded-2xl py-4 px-6 flex flex-col gap-2 shadow-md"
+                            className="max-h-[170px] relative col-span-3 lg:col-span-1 row-span-1 bg-[#181818] border border-neutral-800 md:hover:border-neutral-700 duration-200 rounded-2xl py-4 px-6 flex flex-col gap-2 overflow-hidden"
                             href={`/private/list/${report.id}`}
                             key={report.id}>
                             <div className="flex justify-between items-center">

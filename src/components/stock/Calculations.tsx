@@ -2,6 +2,7 @@ import GaugeChart from "./Chart";
 import CustomLoading from "../loading/CustomLoading";
 import { AnalysisDataResult } from "@/types/buffettAgentTypes";
 import { calculationsData } from "@/data/calculationsData";
+import { MessageCircleQuestion } from "lucide-react";
 
 type CalculationsProps = {
     data: AnalysisDataResult | null;
@@ -33,9 +34,6 @@ export default function Calculations({ data, stockId }: CalculationsProps) {
         <div className="container max-md:!p-5 min-h-[500px]">
             <div className="flex justify-center md:justify-between items-center mb-8">
                 <h1 className="text-[1.5rem] font-semibold">Final result:</h1>
-                <span className="hidden md:block">
-                    Read more about algorithm
-                </span>
             </div>
             <p className="border-l pl-3 md:pl-6">
                 {descriptions.mainDescription}

@@ -2,7 +2,8 @@
 
 import { getPlural } from "@/lib/utils";
 import { SignOutButton } from "@clerk/nextjs";
-import { X } from "lucide-react";
+import { X, XIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { SiClaude } from "react-icons/si";
@@ -55,7 +56,17 @@ export default function MobileNavigation({
                 } fixed top-0 left-0 right-0 w-full z-60 h-full bg-background`}>
                 <div className="flex justify-between p-[18px] items-center">
                     <div className="flex items-center gap-2">
-                        <SiClaude size={24} className="text-[#da7756]" />
+                        <Image
+                            src="/ai-investor-logo.png"
+                            alt="logo"
+                            height={32}
+                            width={32}
+                        />
+
+                        <span>
+                            <XIcon size={14} />
+                        </span>
+                        <SiClaude size={32} className="text-[#da7756]" />
                     </div>
                     <X onClick={() => setIsOpen(false)} />
                 </div>
