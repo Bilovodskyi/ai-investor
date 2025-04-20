@@ -19,7 +19,7 @@ const TypingAnimation = () => {
     const [showCursor, setShowCursor] = useState(true);
     const [isTypingComplete, setIsTypingComplete] = useState(false);
 
-    const typingSpeed = 40;
+    const typingSpeed = 30;
 
     useEffect(() => {
         if (stringIndex >= stringsToType.length) {
