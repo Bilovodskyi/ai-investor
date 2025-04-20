@@ -1,5 +1,7 @@
 # 📈 About
 
+https://github.com/user-attachments/assets/3fd58f6f-e3e3-47fb-84e3-a112eff79eb8
+
 ### **Invest Squid**  
 Think of this app as your go‑to stock buddy. Get **bullish | neutral | bearish** advice for whatever ticker you’re eyeing. Right now, Claude’s in full Buffett mode, and I’ve got plenty more investor gurus in the pipeline!
 
