@@ -2,23 +2,23 @@
 
 https://github.com/user-attachments/assets/3fd58f6f-e3e3-47fb-84e3-a112eff79eb8
 
-### **Invest Squid**  
-Think of this app as your go‑to stock buddy. Get **bullish | neutral | bearish** advice for whatever ticker you’re eyeing. Right now, Claude’s in full Buffett mode, and I’ve got plenty more investor gurus in the pipeline!
+### Invest Squid  
+Think of this app as your new favorite investing tool. Get quick, clear signals (**bullish | neutral | bearish**) on any stock you're curious about. Right now, Claude is supporting only Warren Buffett’s investing style. But soon, I'm going to add more legendary investors!
 
-### **Get 2 Signals (AI + Algorithm)**  
-1. **Data Preprocessing:** I pull in your chosen stock’s key financial metrics, then send only the essentials to Claude with a prompt that says, “Imagine you are Warren Buffett.”  
-2. **Claude Signal & Analysis:** Claude issues a straightforward signal (**bullish | neutral | bearish**), then follows up with a detailed, Buffett‑style write‑up of the company’s strengths, risks, and valuation.  
-3. **Built‑In Algorithm:** My own on‑device algorithm crunches the full dataset and returns its own signal, plus a breakdown of financial ratios, moat indicators, and performance trends.
+### Two Signals (AI + Custom Algorithm)  
+1. **Data Simplified:** I fertch the key financial data for chosen stock, then filter it and pass just the essentials to Claude, prompting it with: *“Imagine you’re Warren Buffett.”*  
+2. **Claude’s Insight:** Claude provides an easy signal (**bullish | neutral | bearish**) and follows it up with a Buffett-style breakdown, highlighting the company's strengths, risks, and valuation.  
+3. **Custom Algorithm:** My own algorithm processing the complete dataset separately, generating its own independent signal, along with detailed insights into financial ratios, competitive moat indicators, and historical performance trends.
 
 # 🛠️ Tech Stack
 
   * Next.js for both front end and back end (server components & server actions)  
-  * TypeScript for end‑to‑end type safety  
+  * TypeScript for type safety  
   * Redux Toolkit for global state management  
   * Neon PostgreSQL + Drizzle ORM for database and migrations  
   * ShadCN/Tailwind CSS for styling and component library  
   * Clerk for user authentication and profiles  
-  * GSAP for subtle UI animations  
+  * GSAP for UI animations  
   * Claude API for AI report & signal generation  
   * Stripe for secure payments and token purchases  
 
@@ -30,32 +30,48 @@ The content, tools, and features provided in this application do **not** constit
 ### ✅ User Responsibility  
 By accessing and using this software, you agree to use it at your own risk. Investing involves risk, and you should only risk capital that you can afford to lose.
 
-# ✨ Features
-
-### 🤖 AI‑Powered Stock Signals
-
-**🧠 Claude‑Investor**  
-- We grab the key stats (ROE, debt levels, margins), whisper “Channel Warren Buffett” to Claude, and voilà—Claude spits out a no‑bias signal plus a short, snackable Buffett‑style rundown: what’s awesome, what’s sketchy, and why.
-
-**🔧 Algorithm**  
-- Then my built‑in engine chews through the full dataset—scoring fundamentals, checking for consistent earnings, measuring moat strength, sizing up management, and even running a margin‑of‑safety test. You get its own signal and a clear breakdown of the numbers that drove it.
-
-**Extras:**  
-- Bookmark tickers and revisit past signals in the Archive.  
-- Compare Claude vs. algorithm calls side by side.  
-- Coming soon: more investor strategies.  
+# ✨ Algorithms
 
 ## 🧮 Buffett Algorithm  
 *(For now, it’s just Buffett’s algorithm based on his key investment principles.)*  
 
-It crunches the numbers in five quick steps:  
-- **Fundamentals:** ROE, debt levels, margins  
-- **Consistency:** steady earnings growth  
-- **Moat:** competitive edge strength  
-- **Management:** buybacks & dividends  
-- **Intrinsic Value:** DCF + margin of safety  
+  This file implements a comprehensive investment analysis inspired by Warren Buffett's principles. 
+  It evaluates a company's stock using five key metrics:
+  
+  1. **Fundamental Analysis**:  
+     Assesses core financial health indicators including:
+     - **Return on Equity (ROE)** – indicates how efficiently a company uses shareholder funds.
+     - **Debt-to-Equity Ratio** – evaluates financial leverage and risk exposure.
+     - **Operating Margin** – measures profitability and pricing power.
+     - **Current Ratio** – evaluates short-term financial liquidity.
+  
+  2. **Consistency Analysis**:  
+     Reviews historical earnings growth and stability to identify predictable business performance and long-term value creation potential.
+  
+  3. **Economic Moat Analysis**:  
+     Determines the strength and sustainability of a company's competitive advantage by analyzing historical consistency of:
+     - **Return on Equity**
+     - **Operating Margins**
+  
+  4. **Management Quality Analysis**:  
+     Examines management’s capital allocation practices through:
+     - Share repurchases or issuance (indicating alignment with shareholder interests).
+     - Dividend distributions (demonstrating management's commitment to shareholder returns).
+  
+  5. **Intrinsic Value Calculation**:  
+     Computes intrinsic value based on Buffett’s preferred "owner earnings" formula, using a conservative Discounted Cash Flow (DCF) model with specific assumptions:
+     - **Owner Earnings** = Net Income + Depreciation - Maintenance CapEx
+     - Conservative growth and discount rates to ensure margin of safety.
+  
+  Finally, these analyses combine to generate a clear investment signal (**bullish**, **neutral**, **bearish**).
 
-Then it blends those scores and delivers a straight‑up **bullish | neutral | bearish** signal.
+
+# Extras: 
+- Saved favorite reports to “My List” using Neon PostgreSQL for user and report data, with optimizations like indexing to boost database loading speed.  
+- Implemented Stripe payments (which can be tricky) and added a token system to limit API usage.  
+- Since the Claude API is pricey, I added caching for generated reports, storing them in session storage.  
+- The financial data API is free but limited to 200 calls/day, so I implemented caching to reduce external requests.  
+
 
 ---
 
