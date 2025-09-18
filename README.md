@@ -1,3 +1,6 @@
+# ⭐️ Support the project
+This project is a personal passion, developed in my free time. If you find it useful, please give it a ⭐️. Your support means a lot and motivates me to keep improving the bot.
+
 # 📈 About
 
 https://github.com/user-attachments/assets/3fd58f6f-e3e3-47fb-84e3-a112eff79eb8
